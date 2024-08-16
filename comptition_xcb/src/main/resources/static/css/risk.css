@@ -1,0 +1,73 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+html{
+    background: url("../img/bg_v3.png") no-repeat center fixed;
+    background-size: 100% 100%;
+    background-color: #001dbc;
+}
+.title span{
+    position: fixed;
+    top:50px;
+    left:50px;
+    color: white;
+    font-family: "微软雅黑", serif;
+    font-size: 32px;
+    letter-spacing: 5px;
+}
+.mainmenu{
+    width: 1000px;
+    height:300px;
+    margin:260px auto;
+    display: flex;
+    justify-content: space-around;
+}
+.submenu{
+    width: 250px;
+    height: 60px;
+    background: #f0f8fc6b;
+    border-radius: 10px;
+    padding-top: 20px;
+}
+.submenu:hover{
+    box-shadow: 0px 0px 11px 9px #63c4f4;
+    cursor: pointer;
+    background: rgba(240, 248, 252, 0.77);
+}
+.submenu:hover .sub_title{
+    color: #1b68c4;
+}
+.submenu .sub_icon{
+    width: 80px;
+    height: 60px;
+    float: left;
+    text-align: center;
+}
+.submenu .sub_icon img{
+    width: 40px;
+    height: 40px;
+}
+.submenu .sub_title{
+    text-align: left;
+    color: whitesmoke;
+    font-size: 25px;
+    padding-left: 90px;
+}
+
+
+.pbclogo{
+	width:80px;
+	height: 80px;
+	position: fixed;
+	top: 40px;
+	right:30px;	
+}
+.pbclogo img{
+	width:80px;
+	height:80px;
+}
+
+
+

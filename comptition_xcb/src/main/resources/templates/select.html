@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>青阳县金融系统党纪学习教育擂台赛</title>
+    <link rel="stylesheet" type="text/css" href="/css/required.css">
+    <script src="/js/jquery-3.2.1.min.js"></script>
+        <script>		
+		$(document).ready(function(){		
+			  $("#home").click(function(){
+				  window.location.href = "/";
+			  });
+		});
+		
+	 </script>
+    <script>
+        var qulist,flag,pcount,xinm,flag;     
+        
+        //每次抽取出除已被抽的
+		function getQuestionList(){
+			flag = $('.flag').val();
+			$.post("/getQuestionListExselect",{flag:flag}, function(data) {
+				xinm=eval(data);
+				pcount = xinm.length;//参加人数
+				startNum();
+			});	
+		}
+        
+		var runing = true;
+		var num = 0;
+		var t;
+		//开始停止
+		function start() {
+			if (runing) {
+				runing = false;
+				$('#btntxt').html('停止');
+				getQuestionList();
+				//startNum();
+			} else {
+				runing = true;
+				$('#btntxt').html('开始');
+				stop();
+			}
+		}
+		//循环参加名单
+		function startNum() {
+			num = Math.floor(Math.random() * pcount);
+			var num_v= xinm[num].que_num;
+			$('.select_num').html("<a href='/questionshow?id="+num_v+"&flag="+flag+"'>"+num_v+"</a>");
+			t = setTimeout(startNum, 0);
+		}
+		//停止跳动
+		function stop() {
+			pcount = xinm.length-1;
+			clearInterval(t);
+			t = 0;
+		}
+	 </script>
+</head>
+<body>
+<div class="title"><span>青阳县金融系统党纪学习教育擂台赛</span></div>
+<div class="pbclogo" id="home"><img src="/img/danghui.png" alt="aaa"></div>
+<div class="wrap">
+    <div class="require_title"><span class="q_type" th:text="${qutype}">必答题</span></div>
+    <div class="q_number">
+        <span class="select_num">题号</span>
+        <input type="hidden" class="flag" th:value="${flag}">
+    </div>
+    <div class="start">
+        <div class="count">已答 <span th:text="${selectednum}"></span>题</div>
+        <button id="btntxt" onclick="start()">开始</button>
+    </div>
+</div>
+<script src="/js/circlestar.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>青阳县金融系统党纪学习教育擂台赛</title>
+    <link rel="stylesheet" type="text/css" href="/css/begin.css">
+    <script src="/js/jquery-3.2.1.min.js"></script>
+        <script>		
+		$(document).ready(function(){		
+			  $("#home").click(function(){
+				  window.location.href = "/";
+			  });
+		});
+		
+	 </script>
+     <script>
+		//开始停止
+		function start() {
+			 //判断题库中是否有题库
+			 flag = 2;
+			 $.post("isHasQuestion",{flag:flag}, function(data) {
+				if(data=="success"){
+					window.location.href = "robquestionshow?flag=2";	
+				}else{
+					alert("题库中没有可供选择的试题！");
+					return;
+				}
+			});	
+			 		
+		}
+		
+	 </script>
+</head>
+<body>
+<div class="title"><span>青阳县金融系统党纪学习教育擂台赛</span></div>
+<div class="pbclogo" id="home"><img src="img/danghui.png"></div>
+<div class="wrap">
+    <div class="require_title"><span>抢答题</span></div>
+    <input type="hidden" class="flag" th:value="${flag}">
+    <div class="start">
+        <button  id="btntxt" onclick="start()">开始出题</button>
+    </div>
+</div>
+<script src="/js/circlestar.js"></script>
+</body>
+</html>

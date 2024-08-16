@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>青阳县金融系统党纪学习教育擂台赛</title>
+    <link rel="stylesheet" type="text/css" href="/css/quick.css">
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">  
+		var intDiff;//倒计时总秒数量
+		function timer(intDiff){
+		    window.setInterval(function(){
+		    var day=0,
+		        hour=0,
+		        minute=0,
+		        second=0;//时间默认值        
+		    if(intDiff > 0){
+		        day = Math.floor(intDiff / (60 * 60 * 24));
+		        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+		        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+		        second = Math.floor(intDiff) ;
+		    }else{		   
+		    	 $('#second_show').html('<s></s>答题时间到');
+            }
+		        
+		    if (minute <= 9) minute = '0' + minute;
+		    if (second <= 9) second = '0' + second;
+		    $('#day_show').html(day+"天");
+		    $('#hour_show').html('<s id="h"></s>'+hour+'时');
+		    $('#minute_show').html('<s></s>'+minute+'分');
+		    $('#second_show').html('<s></s>'+second+'秒');
+		    if(intDiff <= 0){
+		    	 $('#second_show').html('<s></s>时间到');
+		    }
+		    intDiff--;
+		    }, 1000);
+		    
+		} 
+		$(function(){
+			
+			//显示题库类型
+			
+			
+			//显示答案默认隐藏
+			$('.select_que_answer').hide();
+			
+			//倒计时默认隐藏
+			$('.timer').hide();
+			
+			//计时开始
+			$('#time_start').click(function(){
+				$('.timer').show();
+				var q_time = $('.que_time').val();
+				intDiff = parseInt(q_time);
+			    timer(intDiff);
+			    
+			});
+			
+			//显示答案
+			$('#show_answer').click(function(){
+				if($('.select_que_answer').is(':hidden')){  
+				　　　$('.select_que_answer').show();  
+				}else{  
+				　　　$('.select_que_answer').hide();  
+				}  
+			});
+			
+			//继续抽题
+			$('#continue_select').click(function(){
+				var flag = $('.flag').val();
+				window.location.href = "select/"+flag;
+			});
+			
+			//返回主页面
+			$('#back_index').click(function(){
+				window.location.href = "index";
+			});
+		}); 
+	</script>
+</head>
+<body>
+<div class="title"><span>青阳县金融系统党纪学习教育擂台赛</span></div>
+<div class="pbclogo" id="home"><img src="img/danghui.png"></div>
+<div class="wrap">
+    <div class="quick_title">
+    	<span class="qutype" th:text="${qutype}"></span>
+    	<input type="hidden" class="flag" th:value="${flag}">
+    </div>
+    <div class="detail">
+        <p>[<font style="color:#f00;">题号:<span th:text="${qu.que_num}"></span></font>]<span  th:utext="${qu.que_title}"></span></p>
+        <p class="select_que_answer">[ <font style="color:#f00;">答案 </font>]&nbsp;<span th:text="${qu.que_answer}">B</span></p>
+    </div>
+    <div class="button_bar">
+    	<input type="hidden" class="que_time" th:value="${qu.backtime}">
+        <button id="time_start">计时开始</button>
+        <button id="show_answer">显示答案</button>
+        <button class="button_click" id="continue_select">继续抽题</button>
+        <button class="button_click" id="back_index">返回主页</button>
+        <button class="timer" id="second_show">0秒</button>
+
+    </div>
+</div>
+<script src="/js/circlestar.js"></script>
+</body>
+</html>
